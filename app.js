@@ -1,10 +1,17 @@
 const express = require('express');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var keys = require('./config/keys');
 const authRouter = require('./routes/auth');
 const orderRouter = require('./routes/order');
 const categoryRouter = require('./routes/category');
 const positionRouter = require('./routes/position');
 const analyticsRouter = require('./routes/analytics');
+
+mongoose.set('useCreateIndex', true);
+mongoose.connect(keys.mongoConnestion, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => { console.log('Mongo DB connected success.') })
+    .catch(error => console.log(error));
 
 const app = express();
 
